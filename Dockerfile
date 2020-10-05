@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.12 as build
 
 RUN apk add \
         automake \
@@ -46,3 +46,7 @@ RUN wget https://www.openinfosecfoundation.org/download/suricata-4.1.4.tar.gz &&
 
 
 RUN rm -rf /fakeroot/var
+
+FROM alpine:3.12
+
+COPY --from=build /fakeroot /fakeroot
